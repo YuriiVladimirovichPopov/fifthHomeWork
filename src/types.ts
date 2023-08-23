@@ -21,6 +21,15 @@ import { ObjectId } from 'mongodb';
       createdAt: string
   }
 
+  export type UsersMongoDbType = {
+    _id: ObjectId,
+    login: string,
+    email: string,
+    createdAt: string,
+    passwordHash: string
+    passwordSalt: string
+  }
+
   export type createPostDTOType = {         // DTO: data transfer object
       title: string,
       shortDescription: string,

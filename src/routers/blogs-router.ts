@@ -61,7 +61,7 @@ async (req: Request, res: Response) => {
   const blogId = req.params.blogId;
   
   const {title, shortDescription, content} = req.body;
-  //todo create by service
+  
   const newPostForBlogById: PostsInputModel | null = await postsService.createPost(
       {title, shortDescription, content, blogId})
 

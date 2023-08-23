@@ -29,7 +29,7 @@ describe('tests for /posts', () => {
     
     it ("should return 404 for not existing post", async () => {
         await getRequest()
-                .get('/posts/9999999')
+                .get('/posts/999999999999999999999999')
                 .expect(sendStatus.NOT_FOUND_404)
     })
 
