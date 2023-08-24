@@ -22,6 +22,7 @@ usersRouter.get('/', async (req: Request, res: Response) => {
 usersRouter.post('/',
   authorizationValidation,
   ...createUserValidation,
+  inputValidationErrors,
   async (req: Request, res: Response) => {
   const newUser = await userService.createUser(
     req.body.data, 
