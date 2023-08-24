@@ -7,7 +7,7 @@ import { RequestWithBody } from "../types";
 
 export const authRouter = Router ({})
 
-authRouter.post('/login', createUserValidation, async(req: RequestWithBody<LoginInputType>, res: Response) => {
+authRouter.post('/login', /*createUserValidation,*/ async(req: RequestWithBody<LoginInputType>, res: Response) => {
     try {
     const checkResult = await userService.checkCredentials(req.body.loginOrEmail, req.body.password)
     if (!checkResult) {

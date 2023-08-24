@@ -23,10 +23,10 @@ export const usersRepository = {
         console.log()
         let filter: any = {}
         if (pagination.searchEmailTerm) {
-            filter = {email: { $regex: pagination.searchEmailTerm, $options: 'i'}}                    
+            filter.email =  { $regex: pagination.searchEmailTerm, $options: 'i'}               
         }
          if (pagination.searchLoginTerm) {
-            filter = {login: { $regex: pagination.searchLoginTerm, $options: 'i'}}
+            filter.login = { $regex: pagination.searchLoginTerm, $options: 'i'}
          }
         const result: UsersMongoDbType[] =
         await usersCollection.find(filter, {projection: {passwordSalt: 0, passwordHash: 0}}) 

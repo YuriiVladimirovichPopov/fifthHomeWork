@@ -21,7 +21,9 @@ const emailValidation = body('email')
                                             .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)
                                             .withMessage('incorrect email')
 
+const loginOrEmailValidation = body('loginOrEmail').isString().trim()       //todo
 
 
+export const loginUserValidation = [loginOrEmailValidation, passwordValidation] //TODO
 export const createUserValidation = [loginValidation, passwordValidation, emailValidation, inputValidationErrors]
 export const updateUserValidation = [loginValidation, passwordValidation, emailValidation, inputValidationErrors]
