@@ -10,16 +10,16 @@ import { UserViewModel } from "../models/users/userViewModel";
 import { PaginatedUser } from "../models/users/paginatedQueryUser";
 import { createUserValidation } from "../middlewares/validations/users.validation";
 
-export const userRouter = Router({})
+export const usersRouter = Router({})
 
-userRouter.get('/', async (req: Request, res: Response) => {
+usersRouter.get('/', async (req: Request, res: Response) => {
     const pagination = getPaginationFromQuery(req.query)
     const allUsers: PaginatedUser<UserViewModel[]> = await userService.findAllUsers(pagination)
     
     return res.status(sendStatus.OK_200).send(allUsers);
   })
 
-userRouter.post('/',
+usersRouter.post('/',
   authorizationValidation,
   ...createUserValidation,
   async (req: Request, res: Response) => {
@@ -30,7 +30,7 @@ userRouter.post('/',
   return res.status(sendStatus.CREATED_201).send(newUser)
 })
   
-userRouter.delete('/:id', 
+usersRouter.delete('/:id', 
   authorizationValidation,
   inputValidationErrors, 
 async (req: RequestWithParams<getByIdParam>, res: Response) => {

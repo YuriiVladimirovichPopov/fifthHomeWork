@@ -3,6 +3,7 @@ import cors from 'cors'
 import { blogsRouter } from './routers/blogs-router';
 import { postsRouter } from './routers/posts-router';
 import {testingRouter } from './routers/testing-router';
+import { usersRouter } from './routers/users-router';
 
 
 export const app = express()
@@ -16,5 +17,7 @@ app.use(jsonBodyMiddleware)
 app.use('/blogs', blogsRouter)
 
 app.use('/posts', postsRouter)
+
+app.use('/users', usersRouter)
 
 app.use('/testing', testingRouter)
