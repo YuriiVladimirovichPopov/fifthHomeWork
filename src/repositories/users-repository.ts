@@ -20,9 +20,13 @@ export const usersRepository = {
     },
 
     async findAllUsers(pagination: UserPagination): Promise<PaginatedUser<UserViewModel[]>> {
-
-        const filter = {$or:   [{email: { $regex: pagination.searchEmailTerm, $options: 'i'}}, 
-                                {login: { $regex: pagination.searchLoginTerm, $options: 'i'}}]} 
+        let filter: any = {}
+        if (pagination.searchEmailTerm) {
+            filter = {email: { $regex: pagination.searchEmailTerm, $options: 'i'}}                    
+        }
+         if (pagination.searchLoginTerm) {
+            filter = {login: { $regex: pagination.searchLoginTerm, $options: 'i'}}
+         }
         const result: UsersMongoDbType[] =
         await usersCollection.find(filter, {projection: {passwordSalt: 0, passwordHash: 0}}) 
             

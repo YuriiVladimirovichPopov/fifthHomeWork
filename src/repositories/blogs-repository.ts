@@ -21,7 +21,10 @@ export const blogsRepository = {
     },
 
     async findAllBlogs(pagination: PaginatedType): Promise<PaginatedBlog<BlogViewModel[]>> {
-        const filter = {name: {$regex: pagination.searchNameTerm, $options: 'i'}} //todo regex docs
+        let filter = {}
+        if(pagination.searchNameTerm ){
+            filter = {name: {$regex: pagination.searchNameTerm || "", $options: 'i'}} 
+        }
         const result: WithId<BlogsMongoDbType>[] =
         await blogsCollection.find(filter) 
             
