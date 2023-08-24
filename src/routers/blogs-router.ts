@@ -19,14 +19,14 @@ import { PostsViewModel } from "../models/posts/postsViewModel";
 
 
 export const blogsRouter = Router({})
-//1 get/blogs         меняем(добавляем пагинацию)    доделать
+
 blogsRouter.get('/', async (req: Request, res: Response) => {
     const pagination = getPaginationFromQuery(req.query)
     const allBlogs: PaginatedBlog<BlogViewModel[]> = await blogService.findAllBlogs(pagination)
     
     return res.status(sendStatus.OK_200).send(allBlogs);
   })
-// 2 post/blogs          не меняем
+
 blogsRouter.post('/',
   authorizationValidation,
   ...createBlogValidation,
@@ -35,7 +35,7 @@ blogsRouter.post('/',
   return res.status(sendStatus.CREATED_201).send(newBlog)
 })
   
-// 3 blogs/:blogId/posts         меняем(добавляем пагинацию)   доделать    SO-SO READY
+
 blogsRouter.get('/:blogId/posts',  
 
 async (req: Request<{blogId: string}, {}, {}, {}>, res: Response) => { 
@@ -51,7 +51,7 @@ async (req: Request<{blogId: string}, {}, {}, {}>, res: Response) => {
   return res.status(sendStatus.OK_200).send(foundBlogWithAllPosts)
 })
 
-// 4 post blogs/:blogId/posts           меняем(добавляем пагинацию)   доделать    READY
+
 blogsRouter.post('/:blogId/posts', 
 authorizationValidation,
 createPostValidationForBlogRouter,

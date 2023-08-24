@@ -56,7 +56,6 @@ export const blogsRepository = {
         return this._blogMapper(newBlog)
     },
 
-    //6        не меняем
     async updateBlog(id: string, data: BlogInputModel ): Promise<boolean> {
         if(!ObjectId.isValid(id)) {
             return false
