@@ -4,7 +4,7 @@ import { authorizationValidation,
           inputValidationErrors } from "../middlewares/input-validation-middleware";
 import { RequestWithParams } from '../types';
 import { getByIdParam } from "../models/getById";
-import { getPaginationFromQuery } from './helpers/pagination';
+import { getPaginationFromQuery, getUsersPagination } from './helpers/pagination';
 import { userService } from "../domain/user-service";
 import { UserViewModel } from "../models/users/userViewModel";
 import { PaginatedUser } from "../models/users/paginatedQueryUser";
@@ -13,7 +13,7 @@ import { createUserValidation } from "../middlewares/validations/users.validatio
 export const usersRouter = Router({})
 
 usersRouter.get('/', async (req: Request, res: Response) => {
-    const pagination = getPaginationFromQuery(req.query)
+    const pagination = getUsersPagination(req.query)
     const allUsers: PaginatedUser<UserViewModel[]> = await userService.findAllUsers(pagination)
     
     return res.status(sendStatus.OK_200).send(allUsers);

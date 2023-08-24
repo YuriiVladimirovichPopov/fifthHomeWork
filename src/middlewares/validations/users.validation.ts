@@ -18,10 +18,11 @@ const passwordValidation = body('password')
 const emailValidation = body('email')
                                             .isString()
                                             .trim()
+                                            .isEmail()
                                             .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)
                                             .withMessage('incorrect email')
 
-const loginOrEmailValidation = body('loginOrEmail').isString().trim()       //todo
+const loginOrEmailValidation = body('loginOrEmail').isString().trim().isLength({min: 3, max: 30})       //todo
 
 
 export const loginUserValidation = [loginOrEmailValidation, passwordValidation] //TODO

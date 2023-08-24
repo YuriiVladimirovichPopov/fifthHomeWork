@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
-import { BlogsMongoDbType, PostsMongoDbType, UsersMongoDbType, createPostDTOType } from '../types';
-import { MongoClient, WithId } from 'mongodb'
+import { BlogsMongoDbType, PostsMongoDbType, UsersMongoDbType } from '../types';
+import { MongoClient } from 'mongodb'
 
 
 const url = process.env.mongoUrl 
