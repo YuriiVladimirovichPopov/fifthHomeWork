@@ -46,6 +46,9 @@ export const getPaginationFromQuery = (query: any): PaginatedType => {
         if(query.pageSize  && !isNaN(parseInt(query.pageSize, 10)) && parseInt(query.pageSize, 10) > 0) {
             defaultValues.pageSize = parseInt(query.pageSize, 10)
        } 
+        if(query.searchNameTerm) {
+        defaultValues.searchNameTerm = query.searchNameTerm
+        }
            
     defaultValues.skip = (defaultValues.pageNumber - 1) * defaultValues.pageSize
 

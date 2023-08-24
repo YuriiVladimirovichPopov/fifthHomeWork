@@ -20,8 +20,7 @@ export const usersRepository = {
     },
 
     async findAllUsers(pagination: PaginatedType): Promise<PaginatedUser<UserViewModel[]>> {
-        // {$or: [{email}, {login}]}
-        //const filter = {name: {$regex: pagination.searchNameTerm, $options: 'i'}} // $or || $and 
+
         const filter = {$or:   [{email: { $regex: pagination.searchEmailTerm, $options: 'i'}}, 
                                 {login: { $regex: pagination.searchLoginTerm, $options: 'i'}}]} 
         const result: UsersMongoDbType[] =
