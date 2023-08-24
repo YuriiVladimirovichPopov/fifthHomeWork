@@ -9,7 +9,7 @@ import { RequestWithParams, RequestWithBody, PostsMongoDbType } from '../types';
 import { BlogInputModel } from "../models/blogs/blogsInputModel";
 import { getByIdParam } from "../models/getById";
 import { BlogViewModel } from '../models/blogs/blogsViewModel';
-import { queryRepository } from "../query repozitory/queryRepository";
+import { queryRepository } from "../query repozitory/queryPostsRepository";
 import { getPaginationFromQuery } from './helpers/pagination';
 import { PaginatedBlog } from '../models/blogs/paginatedQueryBlog';
 import { PaginatedPost } from '../models/posts/paginatedQueryPost';

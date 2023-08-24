@@ -8,7 +8,7 @@ import { PostsInputModel } from "../models/posts/postsInputModel";
 import { getByIdParam } from "../models/getById";
 import { PostsViewModel } from '../models/posts/postsViewModel';
 import { postsService } from "../domain/post-service";
-import { queryRepository } from "../query repozitory/queryRepository";
+import { queryRepository } from "../query repozitory/queryPostsRepository";
 import { getPaginationFromQuery } from './helpers/pagination';
 import { PaginatedPost } from '../models/posts/paginatedQueryPost';
 import { blogsRepository } from "../repositories/blogs-repository";

@@ -19,12 +19,13 @@ export const usersRepository = {
         }
     },
 
-    
     async findAllUsers(pagination: PaginatedType): Promise<PaginatedUser<UserViewModel[]>> {
         // {$or: [{email}, {login}]}
-        const filter = {name: {$regex: pagination.searchNameTerm, $options: 'i'}} // $or || $and 
+        //const filter = {name: {$regex: pagination.searchNameTerm, $options: 'i'}} // $or || $and 
+        const filter = {$or:   [{email: { $regex: pagination.searchEmailTerm, $options: 'i'}}, 
+                                {login: { $regex: pagination.searchLoginTerm, $options: 'i'}}]} 
         const result: UsersMongoDbType[] =
-        await usersCollection.find(filter) 
+        await usersCollection.find(filter, {projection: {passwordSalt: 0, passwordHash: 0}}) 
             
           .sort({[pagination.sortBy]: pagination.sortDirection})
           .skip(pagination.skip)
@@ -44,7 +45,6 @@ export const usersRepository = {
           return res
     },
 
-   
     async findUserById(id: string):Promise<UserViewModel | null> {
         const userById = await usersCollection.findOne({_id: new ObjectId(id)},)
         if(!userById) {
@@ -54,7 +54,7 @@ export const usersRepository = {
     }, 
     
     async findByLoginOrEmail(loginOrEmail: string) {
-        const user = await usersCollection.findOne({$or: [{email: loginOrEmail}, {userName: loginOrEmail}]})
+        const user = await usersCollection.findOne({$or: [{email: loginOrEmail}, {login: loginOrEmail}]})
         return user
     },
     
@@ -63,7 +63,6 @@ export const usersRepository = {
         return this._userMapper(newUser)
     },
 
-   
     async updateUser(id: string, data: UserInputModel ): Promise<boolean> {
         if(!ObjectId.isValid(id)) {
             return false
@@ -73,7 +72,6 @@ export const usersRepository = {
         return foundUserById.matchedCount === 1
     },
     
-   
     async deleteUser(id: string): Promise<boolean> {
         if (!ObjectId.isValid(id)) {
             return false
@@ -93,20 +91,3 @@ export const usersRepository = {
         }
     }
 }
-
-//function _blogMapper(): any {
-//throw new Error("Function not implemented.");
-//}
-
-
-
-
-
-
-
-//export const usersRepository = [
-//    {
-//        id: 1,
-//        loginPassword: 'Basic YWRtaW46cXdlcnR5',
-//    }
-//]//

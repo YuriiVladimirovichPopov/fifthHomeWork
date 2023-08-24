@@ -2,7 +2,7 @@ import { PostsInputModel } from '../models/posts/postsInputModel';
 import { PostsViewModel } from '../models/posts/postsViewModel';
 import { blogsRepository } from '../repositories/blogs-repository';
 import { postsRepository } from '../repositories/posts-repository';
-import { queryRepository } from '../query repozitory/queryRepository';
+import { queryRepository } from '../query repozitory/queryPostsRepository';
 import { PaginatedPost } from '../models/posts/paginatedQueryPost';
 import { PaginatedType } from '../routers/helpers/pagination';
  

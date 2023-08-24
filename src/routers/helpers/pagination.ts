@@ -4,13 +4,27 @@ export type PaginatedType = {
     sortDirection: 'asc' | 'desc',
     sortBy: string,
     skip: number,
-    searchNameTerm?: string
+    searchNameTerm?: string,
+    searchLoginTerm?: string,
+    searchEmailTerm?: string
+}
+
+export type DefaultPagination = {
+    sortBy: string,
+    sortDirection: 'asc' | 'desc'
+    pageNumber: number,
+    pageSize: number
+    skip: number
+}
+
+export type UserPagination = {
+    searchLoginTerm: string,
+    searchEmailTerm: string
 }
 
 export const getPaginationFromQuery = (query: any): PaginatedType => {
 
     const defaultValues: PaginatedType = {
-        searchNameTerm: '',
         pageNumber: 1, 
         pageSize: 10, 
         sortDirection: 'desc',
@@ -33,16 +47,52 @@ export const getPaginationFromQuery = (query: any): PaginatedType => {
             defaultValues.pageSize = parseInt(query.pageSize, 10)
        } 
            
-        if(query.searchNameTerm) {
-            defaultValues.searchNameTerm = query.searchNameTerm
-        }
     defaultValues.skip = (defaultValues.pageNumber - 1) * defaultValues.pageSize
 
     return defaultValues
+}
 
+export const getDefaultPagination = (query: any): DefaultPagination => {
 
+    const defaultValues: DefaultPagination = {
+        sortBy: 'createdAt',
+        sortDirection:  'desc',//
+        pageNumber: 1, //
+        pageSize: 10, //
+        skip: 0,//
+    }
+    
+    if(query.sortBy){
+       defaultValues.sortBy = query.sortBy
+    };
 
+    if(query.sortDirection && query.sortDirection === 'asc') { 
+         defaultValues.sortDirection = query.sortDirection 
+    } ;
 
+    if(query.pageNumber  && query.pageNumber > 0) {
+         defaultValues.pageNumber = +query.pageNumber 
+    }; 
+
+    if (query.pageSize && query.pageSize > 0) {
+         defaultValues.pageSize = +query.pageSize 
+    } ;
+       
+    defaultValues.skip = (defaultValues.pageNumber - 1) * defaultValues.pageSize
+    return defaultValues
+}
+
+export const getUsersPagination = (query:any): UserPagination => {
+    const defaultValues: UserPagination = {
+        ...getDefaultPagination(query),
+        searchEmailTerm: '',
+        searchLoginTerm: ''
+    }
+
+    if(query.searchEmailTerm) defaultValues.searchEmailTerm = query.searchEmailTerm
+    if(query.searchLoginTerm) defaultValues.searchLoginTerm = query.searchLoginTerm
+
+    return defaultValues
 }
     
     
