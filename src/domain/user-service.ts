@@ -5,7 +5,6 @@ import { PaginatedUser } from "../models/users/paginatedQueryUser";
 import  bcrypt  from "bcrypt";
 import { ObjectId } from "mongodb";
 import {UsersMongoDbType } from "../types";
-import { UserInputModel } from '../models/users/userInputModel';
 
 
 export const userService = {
