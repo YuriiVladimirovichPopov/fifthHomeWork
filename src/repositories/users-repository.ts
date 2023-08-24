@@ -1,9 +1,8 @@
 import { ObjectId} from "mongodb";
 import { usersCollection } from "../db/db";
 import { UsersMongoDbType } from '../types';
-import { PaginatedType, UserPagination } from "../routers/helpers/pagination";
+import { UserPagination } from "../routers/helpers/pagination";
 import { UserViewModel } from "../models/users/userViewModel";
-import { UserInputModel } from "../models/users/userInputModel";
 import { PaginatedUser } from "../models/users/paginatedQueryUser";
 
 
@@ -20,7 +19,6 @@ export const usersRepository = {
     },
 
     async findAllUsers(pagination: UserPagination): Promise<PaginatedUser<UserViewModel[]>> {
-        console.log()
         let filter: any = {}
         if (pagination.searchEmailTerm) {
             filter.email =  { $regex: pagination.searchEmailTerm, $options: 'i'}               
