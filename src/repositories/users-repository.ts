@@ -20,6 +20,7 @@ export const usersRepository = {
     },
 
     async findAllUsers(pagination: UserPagination): Promise<PaginatedUser<UserViewModel[]>> {
+        console.log()
         let filter: any = {}
         if (pagination.searchEmailTerm) {
             filter = {email: { $regex: pagination.searchEmailTerm, $options: 'i'}}                    
