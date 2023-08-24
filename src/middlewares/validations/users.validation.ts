@@ -6,6 +6,7 @@ const loginValidation = body('login')
                                             .isString()
                                             .isLength({min: 3, max: 30})
                                             .trim()
+                                            .matches(/^[a-zA-Z0-9_-]*$/)
                                             .withMessage('incorrect login')
 
 const passwordValidation = body('password')
@@ -17,6 +18,7 @@ const passwordValidation = body('password')
 const emailValidation = body('email')
                                             .isString()
                                             .trim()
+                                            .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)
                                             .withMessage('incorrect email')
 
 

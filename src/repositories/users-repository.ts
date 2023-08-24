@@ -66,7 +66,7 @@ export const usersRepository = {
         await usersCollection.insertOne(newUser)
         return this._userMapper(newUser)
     },
-
+/*
     async updateUser(id: string, data: UserInputModel ): Promise<boolean> {
         if(!ObjectId.isValid(id)) {
             return false
@@ -75,7 +75,7 @@ export const usersRepository = {
         const foundUserById = await usersCollection.updateOne({_id}, {$set: {...data}})
         return foundUserById.matchedCount === 1
     },
-    
+ */    
     async deleteUser(id: string): Promise<boolean> {
         if (!ObjectId.isValid(id)) {
             return false
@@ -85,7 +85,7 @@ export const usersRepository = {
         
         return foundUserById.deletedCount === 1
     }, 
-    
+   
     async deleteAllUsers(): Promise<boolean> {
         try {
             const result = await usersCollection.deleteMany({});

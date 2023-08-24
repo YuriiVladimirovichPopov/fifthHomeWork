@@ -25,7 +25,8 @@ usersRouter.post('/',
   inputValidationErrors,
   async (req: Request, res: Response) => {
   const newUser = await userService.createUser(
-    req.body.data, 
+    req.body.login,
+    req.body.email, // change(добавляем логин и емаил заместо даты)
     req.body.password 
     ) 
   return res.status(sendStatus.CREATED_201).send(newUser)

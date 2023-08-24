@@ -15,13 +15,14 @@ export const userService = {
         return await usersRepository.findAllUsers(pagination)
     },
 
-    async createUser (data: UserInputModel, password: string): Promise<UserViewModel> {
+    async createUser (login: string, email: string, password: string): Promise<UserViewModel> {
         const passwordSalt = await bcrypt.genSalt(10)
         const passwordHash = await this._generateHash(password, passwordSalt)
 
         const newUser: UsersMongoDbType = {
             _id: new ObjectId(),
-            ...data,
+            login,
+            email,
             passwordHash, 
             passwordSalt,
             createdAt: new Date().toISOString(),
