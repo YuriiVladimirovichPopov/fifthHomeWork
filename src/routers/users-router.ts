@@ -37,7 +37,7 @@ usersRouter.delete('/:id',
  
 async (req: RequestWithParams<getByIdParam>, res: Response) => {
   //find user by id
-  const foundUser = await userService.deleteUserById(req.body.id);
+  const foundUser = await userService.deleteUserById(req.params.id);
   if (!foundUser) {
     return res.sendStatus(sendStatus.NOT_FOUND_404)
   }

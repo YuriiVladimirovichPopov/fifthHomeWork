@@ -25,12 +25,12 @@ export const usersRepository = {
             filter = { $or:[{$regex: pagination.searchEmailTerm, $options: 'i'}, 
                             {$regex: pagination.searchLoginTerm, $options: 'i'}]}
         }
-        if (pagination.searchEmailTerm ) {
+        else if (pagination.searchEmailTerm ) {
             filter = {email:  { $regex: pagination.searchEmailTerm, $options: 'i'} }              
         }
-         if (pagination.searchLoginTerm) {
+        else if (pagination.searchLoginTerm) {
             filter = {login: { $regex: pagination.searchLoginTerm, $options: 'i'}}
-         }
+        }
          //filter = {email:...AND login:...}
          //filter = {email:... OR login:...}
         const result: UsersMongoDbType[] =
@@ -83,9 +83,9 @@ export const usersRepository = {
     },
  */    
     async deleteUser(id: string): Promise<boolean> {
-        //if (!ObjectId.isValid(id)) {
-        //    return false
-        //}
+        if (!ObjectId.isValid(id)) {
+            return false
+        }
         
         const foundUserById = await usersCollection.deleteOne({_id: new ObjectId(id)})
         
@@ -101,3 +101,6 @@ export const usersRepository = {
         }
     }
 }
+
+
+
