@@ -22,8 +22,8 @@ export const usersRepository = {
     async findAllUsers(pagination: UserPagination): Promise<PaginatedUser<UserViewModel[]>> {
         let filter = {};
         if(pagination.searchEmailTerm && pagination.searchLoginTerm){
-            filter = { $or:[{$regex: pagination.searchEmailTerm, $options: 'i'}, 
-                            {$regex: pagination.searchLoginTerm, $options: 'i'}]}
+            filter = { $or:[{email: {$regex: pagination.searchEmailTerm, $options: 'i'}}, 
+                            {login: {$regex: pagination.searchLoginTerm, $options: 'i'}}]}
         }
         else if (pagination.searchEmailTerm ) {
             filter = {email:  { $regex: pagination.searchEmailTerm, $options: 'i'} }              
