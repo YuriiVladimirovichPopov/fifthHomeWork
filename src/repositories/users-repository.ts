@@ -1,8 +1,9 @@
 import { ObjectId} from "mongodb";
 import { usersCollection } from "../db/db";
 import { UsersMongoDbType } from '../types';
-import { UserPagination } from "../routers/helpers/pagination";
+import { PaginatedType, UserPagination } from "../routers/helpers/pagination";
 import { UserViewModel } from "../models/users/userViewModel";
+import { UserInputModel } from "../models/users/userInputModel";
 import { PaginatedUser } from "../models/users/paginatedQueryUser";
 
 
@@ -20,12 +21,18 @@ export const usersRepository = {
 
     async findAllUsers(pagination: UserPagination): Promise<PaginatedUser<UserViewModel[]>> {
         let filter: any = {}
-        if (pagination.searchEmailTerm) {
+        if(pagination.searchEmailTerm && pagination.searchLoginTerm){
+            filter.$or = [{$regex: pagination.searchEmailTerm, $options: 'i'}, 
+                            {$regex: pagination.searchLoginTerm, $options: 'i'}]
+        }
+        if (pagination.searchEmailTerm ) {
             filter.email =  { $regex: pagination.searchEmailTerm, $options: 'i'}               
         }
          if (pagination.searchLoginTerm) {
             filter.login = { $regex: pagination.searchLoginTerm, $options: 'i'}
          }
+         //filter = {email:...AND login:...}
+         //filter = {email:... OR login:...}
         const result: UsersMongoDbType[] =
         await usersCollection.find(filter, {projection: {passwordSalt: 0, passwordHash: 0}}) 
             
@@ -75,9 +82,9 @@ export const usersRepository = {
     },
  */    
     async deleteUser(id: string): Promise<boolean> {
-        if (!ObjectId.isValid(id)) {
-            return false
-        }
+        //if (!ObjectId.isValid(id)) {
+        //    return false
+        //}
         const _id = new ObjectId(id)
         const foundUserById = await usersCollection.deleteOne({_id})
         

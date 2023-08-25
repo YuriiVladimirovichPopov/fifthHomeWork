@@ -21,7 +21,6 @@ export type UserPagination = {
     sortDirection: 'asc' | 'desc',
     sortBy: string,
     skip: number,
-    searchNameTerm?: string,
     searchLoginTerm?: string,
     searchEmailTerm?: string
 }
