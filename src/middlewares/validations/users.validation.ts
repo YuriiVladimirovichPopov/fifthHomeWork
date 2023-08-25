@@ -4,7 +4,7 @@ import { inputValidationErrors } from "../input-validation-middleware";
 
 const loginValidation = body('login')
                                             .isString()
-                                            .isLength({min: 3, max: 30})
+                                            .isLength({min: 3, max: 10})
                                             .trim()
                                             .matches(/^[a-zA-Z0-9_-]*$/)
                                             .withMessage('incorrect login')

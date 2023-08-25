@@ -20,16 +20,16 @@ export const usersRepository = {
     },
 
     async findAllUsers(pagination: UserPagination): Promise<PaginatedUser<UserViewModel[]>> {
-        let filter: any = {}
+        let filter = {};
         if(pagination.searchEmailTerm && pagination.searchLoginTerm){
-            filter.$or = [{$regex: pagination.searchEmailTerm, $options: 'i'}, 
-                            {$regex: pagination.searchLoginTerm, $options: 'i'}]
+            filter = { $or:[{$regex: pagination.searchEmailTerm, $options: 'i'}, 
+                            {$regex: pagination.searchLoginTerm, $options: 'i'}]}
         }
         if (pagination.searchEmailTerm ) {
-            filter.email =  { $regex: pagination.searchEmailTerm, $options: 'i'}               
+            filter = {email:  { $regex: pagination.searchEmailTerm, $options: 'i'} }              
         }
          if (pagination.searchLoginTerm) {
-            filter.login = { $regex: pagination.searchLoginTerm, $options: 'i'}
+            filter = {login: { $regex: pagination.searchLoginTerm, $options: 'i'}}
          }
          //filter = {email:...AND login:...}
          //filter = {email:... OR login:...}
@@ -40,7 +40,8 @@ export const usersRepository = {
           .skip(pagination.skip)
           .limit(pagination.pageSize)
           .toArray()
-          
+
+                    
           const totalCount: number = await usersCollection.countDocuments(filter)
           const pageCount: number = Math.ceil(totalCount / pagination.pageSize)
     
@@ -85,8 +86,8 @@ export const usersRepository = {
         //if (!ObjectId.isValid(id)) {
         //    return false
         //}
-        const _id = new ObjectId(id)
-        const foundUserById = await usersCollection.deleteOne({_id})
+        
+        const foundUserById = await usersCollection.deleteOne({_id: new ObjectId(id)})
         
         return foundUserById.deletedCount === 1
     }, 
